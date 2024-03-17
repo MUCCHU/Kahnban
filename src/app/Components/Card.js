@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import dots from '@/Images/dots.png'
 import Image from 'next/image';
@@ -12,10 +13,29 @@ import {
 
 function Card(props) {
   const handleSetProgress = () => {
-
+    axios.put('/api/task', {
+      id: props.id,
+      status: 'In Progress'
+    })
+    .then(response => {
+      console.log(response);
+    })
+    .catch(error => {
+      console.log(error);
+    })
   }
   const handleSetCompleted = () => {
-    
+    console.log('handleSetCompleted')
+    axios.put('/api/task', {
+      id: props.id,
+      status: 'Completed'
+    })
+    .then(response => {
+      console.log(response);
+    })
+    .catch(error => {
+      console.log(error);
+    })
   }
   return (
     <div style={{margin: '15px 0 15px 0'}} className='bg-white rounded-2xl p-3' >
@@ -27,15 +47,19 @@ function Card(props) {
         </div>
         <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Image className='cursor-pointer'  style={{width: '20px'}} src={dots}/>
+        <Image className='cursor-pointer' alt='dots' style={{width: '20px'}} src={dots}/>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         <DropdownMenuGroup>
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={handleSetProgress}>
+          <div onClick={handleSetProgress}>
             Mark In Progress
+            </div>
           </DropdownMenuItem>
           <DropdownMenuItem>
+            <div onClick={handleSetCompleted}>
             Mark Completed
+            </div>
           </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>

@@ -38,6 +38,7 @@ function Pane(props) {
       priority,
       'status': 'To Do'
     })
+    props.fetchTasks();
   }
 
   return (
@@ -57,7 +58,7 @@ function Pane(props) {
         }} ></div>
         <div >
           {props.tasks.map((task, index) => {
-            return <Card key={index} completed={task.status === 'Completed'} title={task.title} description={task.description} priority={task.priority} />
+            return <Card key={index} completed={task.status === 'Completed'} id={task._id} title={task.title} description={task.description} priority={task.priority} />
           })}
         
         </div>

@@ -35,9 +35,8 @@ export async function POST(request) {
 export async function PUT(request) {
     try {
         await connectDB();
-        const { id } = request.query;
         let data = await request.json();
-        const task = await Task.findByIdAndUpdate(id, data, {
+        const task = await Task.findByIdAndUpdate(data.id, data, {
             new: true,
             runValidators: true
         });

@@ -21,15 +21,19 @@ export default function Home() {
     return tasks.filter(task => task.status === status)
   }
   const seperateTasks = () =>{
+    console.log('seperateTasks');
     setToDo(taskFilter('To Do'))
     setInProgress(taskFilter('In Progress'))
     setCompleted(taskFilter('Completed'))
   }
-  
-  useEffect(() => {
+  const fetchTasks = () => {
     axios.get("/api/task").then((response) => {
+      console.log(response.data);
       setTasks(response.data);
     });
+  }
+  useEffect(() => {
+    fetchTasks();
   }, []);
 
 
@@ -41,9 +45,9 @@ export default function Home() {
   return (
     <div className="w-full flex justify-center items-center bg-black" style={{height: '100vh'}}>
       <div style={{width: '80%'}} className="rounded-2xl p-8 gap-5 grid grid-cols-3 bg-white">
-        <div style={{backgroundColor:'#f5f5f5'}} className="rounded-2xl"><Pane tasks={toDo} color="#5030E5" title="To Do" /></div>
-        <div style={{backgroundColor:'#f5f5f5'}} className="rounded-2xl"><Pane tasks={inProgress} color="#FFA500" title="In Progress" /></div>
-        <div style={{}} className="rounded-2xl"><Pane color="#8BC48A" tasks={completed} title="Completed" /></div>
+        <div style={{backgroundColor:'#f5f5f5'}} className="rounded-2xl"><Pane fetchTasks={fetchTasks} tasks={toDo} color="#5030E5" title="To Do" /></div>
+        <div style={{backgroundColor:'#f5f5f5'}} className="rounded-2xl"><Pane fetchTasks={fetchTasks} tasks={inProgress} color="#FFA500" title="In Progress" /></div>
+        <div style={{}} className="rounded-2xl"><Pane fetchTasks={fetchTasks} color="#8BC48A" tasks={completed} title="Completed" /></div>
       </div>
     </div>
   );
