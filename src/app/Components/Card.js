@@ -19,6 +19,7 @@ function Card(props) {
     })
     .then(response => {
       console.log(response);
+      props.fetchTasks();
     })
     .catch(error => {
       console.log(error);
@@ -32,6 +33,7 @@ function Card(props) {
     })
     .then(response => {
       console.log(response);
+      props.fetchTasks();
     })
     .catch(error => {
       console.log(error);

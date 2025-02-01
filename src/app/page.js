@@ -27,6 +27,7 @@ export default function Home() {
     setCompleted(taskFilter('Completed'))
   }
   const fetchTasks = () => {
+    console.log("fetching tasks");
     axios.get("/api/task").then((response) => {
       console.log(response.data);
       setTasks(response.data);
